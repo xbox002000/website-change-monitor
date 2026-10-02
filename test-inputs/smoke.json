@@ -1,0 +1,11 @@
+{
+  "urls": [
+    { "url": "https://example.com/" },
+    { "url": "https://example.org/" }
+  ],
+  "snapshotStoreName": "wcm-local-smoke",
+  "storePreviousText": true,
+  "maxUrls": 10,
+  "maxConcurrency": 2,
+  "outputFilter": "all"
+}

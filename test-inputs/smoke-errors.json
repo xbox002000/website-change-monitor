@@ -1,0 +1,10 @@
+{
+  "urls": [
+    { "url": "https://example.com/" },
+    { "url": "https://this-host-definitely-does-not-exist-wcm-9f3a.invalid/" }
+  ],
+  "snapshotStoreName": "wcm-local-errors",
+  "chargeFailedChecks": false,
+  "maxUrls": 10,
+  "maxConcurrency": 2
+}

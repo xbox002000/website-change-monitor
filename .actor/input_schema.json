@@ -1,0 +1,161 @@
+{
+  "title": "Website change monitor input",
+  "description": "Paste URLs or chain from Sitemap / URL-status dataset or DOC_TO_MARKDOWN_INPUT. Each URL is fetched over HTTP, text-extracted (optional CSS selector), hashed, and compared to a persistent snapshot store. No browser, no LLM.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "urls": {
+      "title": "URLs to monitor",
+      "type": "array",
+      "description": "One or more URLs. Accepts {\"url\": \"...\"} objects (same shape as Sitemap / URL-status dataset rows). Plain strings and remote lists (requestsFromUrl) also work.",
+      "editor": "requestListSources",
+      "prefill": [
+        { "url": "https://example.com/" },
+        { "url": "https://example.org/" }
+      ],
+      "sectionCaption": "Input"
+    },
+    "datasetId": {
+      "title": "Source dataset ID",
+      "type": "string",
+      "description": "Optional. Apify dataset ID from Sitemap URL Discovery or URL Status Checker. Reads the `url` field from each item.",
+      "editor": "textfield",
+      "sectionCaption": "Chain from another Actor"
+    },
+    "keyValueStoreId": {
+      "title": "Source key-value store ID",
+      "type": "string",
+      "description": "Optional. Load URLs from a KV record such as DOC_TO_MARKDOWN_INPUT.",
+      "editor": "textfield"
+    },
+    "keyValueRecordKey": {
+      "title": "Record key",
+      "type": "string",
+      "description": "Key inside the source key-value store. Ignored unless a store ID is set.",
+      "editor": "textfield",
+      "default": "DOC_TO_MARKDOWN_INPUT"
+    },
+    "snapshotStoreId": {
+      "title": "Snapshot store ID",
+      "type": "string",
+      "description": "Optional. Existing Apify key-value store ID that holds previous hashes/text. Prefer this for stable cross-run state. If empty, Snapshot store name is used.",
+      "editor": "textfield",
+      "sectionCaption": "Snapshots"
+    },
+    "snapshotStoreName": {
+      "title": "Snapshot store name",
+      "type": "string",
+      "description": "Named KV store used when Snapshot store ID is empty. Created if missing. Use one name per monitoring project.",
+      "editor": "textfield",
+      "default": "website-change-snapshots"
+    },
+    "storePreviousText": {
+      "title": "Store previous text",
+      "type": "boolean",
+      "description": "Save normalized text in the snapshot so the next run can emit a unified diff. Turn off to store hashes only (cheaper storage; hash change still detected).",
+      "default": true
+    },
+    "maxStoredTextChars": {
+      "title": "Max stored text chars",
+      "type": "integer",
+      "description": "Cap for text kept in each snapshot (characters). Diffs use this stored text.",
+      "default": 100000,
+      "minimum": 0,
+      "maximum": 500000
+    },
+    "cssSelector": {
+      "title": "CSS selector (main content)",
+      "type": "string",
+      "description": "Optional. Restrict hashing/diff to matching nodes (e.g. main, article, #content). Empty = whole body after stripping script/style.",
+      "editor": "textfield",
+      "sectionCaption": "Extraction"
+    },
+    "ignorePatterns": {
+      "title": "Ignore regex patterns",
+      "type": "array",
+      "description": "Regex patterns removed from text before hashing (timestamps, CSRF tokens, counters). Applied with MULTILINE.",
+      "editor": "stringList",
+      "default": []
+    },
+    "maxUrls": {
+      "title": "Max URLs",
+      "type": "integer",
+      "description": "Stop after checking this many unique URLs (0 = no limit).",
+      "default": 500,
+      "prefill": 100,
+      "minimum": 0,
+      "maximum": 100000,
+      "sectionCaption": "Limits"
+    },
+    "maxBodyBytes": {
+      "title": "Max body bytes",
+      "type": "integer",
+      "description": "Truncate each response body after this many bytes before extraction.",
+      "default": 2000000,
+      "minimum": 10000,
+      "maximum": 10000000
+    },
+    "outputFilter": {
+      "title": "Dataset filter",
+      "type": "string",
+      "description": "Which rows to save. SUMMARY always covers every check. Successful checks are still charged when filtered out.",
+      "editor": "select",
+      "enum": ["all", "changed", "changed_or_first", "errors"],
+      "enumTitles": [
+        "All checked URLs",
+        "Changed only",
+        "Changed or first-seen",
+        "Errors only"
+      ],
+      "default": "all",
+      "sectionCaption": "Output",
+      "prefill": "all"
+    },
+    "maxDiffLines": {
+      "title": "Max unified-diff lines",
+      "type": "integer",
+      "description": "Cap lines in diffSummary.unifiedDiff.",
+      "default": 40,
+      "minimum": 5,
+      "maximum": 200
+    },
+    "chargeFailedChecks": {
+      "title": "Charge failed checks",
+      "type": "boolean",
+      "description": "Default off: DNS/timeout/network failures are free. Turn on only if you want every attempted URL billed as page-checked.",
+      "default": false,
+      "sectionCaption": "Pricing behaviour"
+    },
+    "maxConcurrency": {
+      "title": "Max concurrency",
+      "type": "integer",
+      "description": "Parallel HTTP fetches.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 20,
+      "sectionCaption": "Request behaviour"
+    },
+    "requestTimeoutSecs": {
+      "title": "Request timeout (seconds)",
+      "type": "integer",
+      "description": "Timeout for each HTTP GET.",
+      "default": 30,
+      "minimum": 5,
+      "maximum": 120
+    },
+    "userAgent": {
+      "title": "User-Agent",
+      "type": "string",
+      "description": "Optional custom User-Agent.",
+      "editor": "textfield"
+    },
+    "proxyConfiguration": {
+      "title": "Proxy",
+      "type": "object",
+      "description": "Optional Apify Proxy if a site blocks data-center IPs.",
+      "editor": "proxy",
+      "prefill": { "useApifyProxy": false },
+      "default": { "useApifyProxy": false }
+    }
+  }
+}

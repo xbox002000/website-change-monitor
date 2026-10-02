@@ -1,0 +1,14 @@
+{
+  "urls": [
+    { "url": "https://example.com/" },
+    { "url": "https://example.org/" },
+    { "url": "https://www.iana.org/domains/reserved" },
+    { "url": "https://httpbingo.org/html" },
+    { "url": "https://httpbingo.org/robots.txt" }
+  ],
+  "snapshotStoreName": "wcm-cloud-bench-small",
+  "storePreviousText": true,
+  "maxUrls": 20,
+  "maxConcurrency": 3,
+  "outputFilter": "all"
+}

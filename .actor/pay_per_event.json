@@ -1,0 +1,18 @@
+{
+    "apify-actor-start": {
+        "eventTitle": "Actor start",
+        "eventDescription": "Charged once per run (Apify synthetic start event; priced per GB of run memory, 1 GB minimum). Target ~$0.001 for a typical 256 MB–1 GB start.",
+        "eventPriceUsd": 0.001
+    },
+    "page-checked": {
+        "eventTitle": "Page checked",
+        "eventDescription": "Charged once per URL that was successfully fetched and hashed (including first-seen and unchanged pages). Failed network/DNS/timeout/SSL checks are free unless chargeFailedChecks is enabled.",
+        "eventPriceUsd": 0.0015,
+        "isPrimaryEvent": true
+    },
+    "page-changed": {
+        "eventTitle": "Page changed",
+        "eventDescription": "Charged once when a successful check detects a content-hash change vs the previous snapshot (not charged on first-seen). Stacks with page-checked.",
+        "eventPriceUsd": 0.008
+    }
+}

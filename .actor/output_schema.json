@@ -1,0 +1,25 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Website Change Monitor output",
+  "description": "One dataset item per checked URL (after optional filter), plus SUMMARY and OUTPUT in the default key-value store. Snapshots live in the configured snapshot store.",
+  "properties": {
+    "results": {
+      "type": "string",
+      "title": "Change-check results",
+      "description": "Dataset items: url, httpStatus, contentHash, previousHash, changed, isFirstSeen, diffSummary, checkedAt, errorClass.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+    },
+    "summary": {
+      "type": "string",
+      "title": "SUMMARY report",
+      "description": "KV SUMMARY: totalChecked, changed, firstSeen, failed, charged, durationSecs, peakMemoryMb.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+    },
+    "output": {
+      "type": "string",
+      "title": "Run summary (OUTPUT)",
+      "description": "KV OUTPUT: same as SUMMARY for sibling Actor consistency.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT"
+    }
+  }
+}

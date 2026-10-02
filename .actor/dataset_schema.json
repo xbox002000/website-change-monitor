@@ -1,0 +1,43 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "All checks",
+      "transformation": {
+        "fields": ["url", "httpStatus", "changed", "isFirstSeen", "contentHash", "previousHash", "textChars", "durationMs", "errorClass"]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": { "label": "URL", "format": "link" },
+          "httpStatus": { "label": "HTTP", "format": "number" },
+          "changed": { "label": "Changed", "format": "boolean" },
+          "isFirstSeen": { "label": "First", "format": "boolean" },
+          "contentHash": { "label": "Hash", "format": "text" },
+          "previousHash": { "label": "Prev hash", "format": "text" },
+          "textChars": { "label": "Chars", "format": "number" },
+          "durationMs": { "label": "ms", "format": "number" },
+          "errorClass": { "label": "Error", "format": "text" }
+        }
+      }
+    },
+    "changed": {
+      "title": "Changed pages",
+      "transformation": {
+        "fields": ["url", "httpStatus", "contentHash", "previousHash", "diffSummary", "checkedAt"]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": { "label": "URL", "format": "link" },
+          "httpStatus": { "label": "HTTP", "format": "number" },
+          "contentHash": { "label": "Hash", "format": "text" },
+          "previousHash": { "label": "Prev hash", "format": "text" },
+          "diffSummary": { "label": "Diff", "format": "object" },
+          "checkedAt": { "label": "Checked", "format": "date" }
+        }
+      }
+    }
+  }
+}
