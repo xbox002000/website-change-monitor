@@ -126,4 +126,4 @@ Sitemap URL Discovery → URL Status Checker → Website Change Monitor
 
 ## License & source code
 
-This Actor is open source under the **GNU Affero General Public License v3.0 (AGPL-3.0)** — see `LICENSE`. Runtime stack: `httpx` (BSD-3-Clause), `selectolax` (MIT), Apify SDK (Apache-2.0).
+This Actor is open source under the **GNU Affero General Public License v3.0 (AGPL-3.0)** — see `LICENSE`. Runtime stack: `httpx` (BSD-3-Clause), `selectolax` (MIT), Apify SDK (Apache-2.0). The full source code is public: https://github.com/xbox002000/website-change-monitor
